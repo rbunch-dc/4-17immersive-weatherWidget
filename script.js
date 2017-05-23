@@ -27,18 +27,18 @@ $(document).ready(()=>{
 			var newHTML = '<img src="http://openweathermap.org/img/w/' + icon+'">' + desc;
 			newHTML += '<div>The temp in ' + name + ' is currently ' + currTemp + '&deg;</div>';
 			$('#temp-info').html(newHTML);
-
+			currentPercent = 0;
+			animateCircle(0,currTemp);
 		});
 	});
 
 
 	var canvas = $('#weather-canvas');
 	var context = canvas[0].getContext('2d');
-
 	var assumedTemperature = 65;
-
 	var currentPercent = 0;
-	function animateCircle(currentArc){
+
+	function animateCircle(currentArc,currentTemp){
 		// console.log(currentArc);
 		// Draw Inner Circle
 		context.fillStyle = "#ccc";
@@ -57,12 +57,12 @@ $(document).ready(()=>{
 
 		// Update the current Perecentage
 		currentPercent++;
-		if(currentPercent < assumedTemperature){
+		if(currentPercent < currentTemp){
 			requestAnimationFrame(function(){
-				animateCircle(currentPercent/100);
+				animateCircle(currentPercent/100,currentTemp);
 			});
 		}
 	}
-	animateCircle();
+	// animateCircle();
 
 });
